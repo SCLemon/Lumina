@@ -7,7 +7,7 @@ module.exports = defineConfig({
   lintOnSave: false,
   publicPath: './',
   devServer: {
-    https: true,
+    https: false,
     proxy: {
       '/stock': {
         target: 'http://127.0.0.1:3007',

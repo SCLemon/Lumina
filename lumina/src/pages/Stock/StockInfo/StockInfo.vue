@@ -13,15 +13,7 @@ export default {
     data(){
         return{
             symbol:2330,
-            datas:{},
-            candles:[],
-            chart:{},
-            pChart:{},
-            history:{},
-            price:[],
-            priceTimes:0,
-            times:0,
-            showColor:'red',
+            timer:0,
         }
     },
     watch:{
@@ -29,13 +21,17 @@ export default {
             deep:true,
             handler(){
                 this.chart.destroy();
-                this.symbol = this.$route.query.symbol;
+                this.symbol = this.$route.query.symbol?this.$route.query.symbol:2330;
                 this.getData();
             }
         }
     },
     mounted(){
+        this.symbol = this.$route.query.symbol?this.$route.query.symbol:2330;
         this.getData()
+    },
+    beforeDestroyed(){
+
     },
     methods:{
         async getData(){
@@ -58,9 +54,16 @@ export default {
                 }
             });
             this.chart = Highcharts.stockChart('container', {
+                // plotOptions:{
+                //     series:{
+                //         animation:{
+                //             duration:this.initialized?0:1000,
+                //         }
+                //     }
+                // },
                 chart: {
                     type: 'stock',       // 設定圖表為股票型態
-                    height: window.innerHeight - 80,         // 設定圖表的總高度
+                    height: window.innerHeight - 45,         // 設定圖表的總高度
                     spacingTop: 20,      // 設定圖表頂部間距
                     spacingRight: 20,    // 設定圖表右側間距
                     spacingBottom: 20,   // 設定圖表底部間距
@@ -108,8 +111,6 @@ export default {
                     height: '20%',        
                     offset: 0,
                     lineWidth: 1,
-                    min: -100,
-                    max: 100
                 }],
                 tooltip: {
                     shape: 'square',
@@ -162,7 +163,6 @@ export default {
                     linkedTo: `${this.symbol} 股價`
                 }]
             });
-
         },
     },
 }

@@ -21,6 +21,10 @@ const router = new VueRouter({
                 {
                     path:'stockInfo',
                     component:StockInfo
+                },
+                {
+                    path:'',
+                    redirect:'stockInfo'
                 }
             ]
         },

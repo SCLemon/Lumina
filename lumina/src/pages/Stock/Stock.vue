@@ -1,12 +1,15 @@
 <template>
     <div>
         <div class="header">
-            <div class="logo"><img src="img/logo.png" alt=""></div>
+            <div class="logo" @click="goIndex()"><img src="img/logo.png" alt=""></div>
             <div class="search">
                 <div class="search_input" ref="search_input">
                     <input type="text" class="search_text" placeholder="請輸入股票名稱或代號" v-model="input">
                     <div class="listBox" v-if="input.length">
-                        <div v-for="(obj,id) in findData" :key="id" class="list_item" @click="goTo(obj)">{{ obj.name }}</div>
+                        <div v-for="(obj,id) in findData" :key="id" class="list_item" @click="goTo(obj)">
+                            <div class="stock_name">{{ obj.name }}</div>
+                            <div class="stock_symbol">{{ obj.symbol }}</div>
+                        </div>
                     </div>
                 </div>
                 <i class="el-icon-search search_icon" @click="toggleSearchInput()"></i>
@@ -62,9 +65,12 @@ export default {
                     symbol:stock.symbol,
                     timestamp:Date.now(),
                 }
-            })
+            }).catch(e=>{})
             this.toggleSearchInput();
         },
+        goIndex(){
+            this.$router.push('/').catch(e=>{})
+        }
     }
 }
 </script>
@@ -75,7 +81,7 @@ export default {
       height: 60px;
       line-height: 60px;
       font-weight: bolder;
-      border-bottom:0.1px solid rgb(210, 210, 210);
+      /* border-bottom:0.1px solid rgb(210, 210, 210); */
       font-size: 20px;
       position: sticky;
       top:0;
@@ -88,6 +94,9 @@ export default {
         height: 50px;
         object-fit: contain;
         margin-left: 5px;
+    }
+    .logo:hover{
+        cursor: pointer;
     }
     .logo>img{
         max-width: 100%;
@@ -118,7 +127,7 @@ export default {
         position: relative;
     }
     .search_input_open{
-        width: 190px;
+        width: 250px;
         opacity: 1;
     }
     .search_icon{
@@ -149,15 +158,26 @@ export default {
         overflow-y: scroll;
     }
     .list_item{
-        font-size: 14px;
+        font-size: 13px;
         padding-left: 10px;
         padding-right: 10px;
         height: 40px;
         line-height: 40px;
+        display: flex;
+    }
+    .stock_name{
+        margin-right: auto;
+    }
+    .stock_symbol{
+        margin-left: auto;
+        color: gray;
     }
     .list_item:hover{
         cursor: pointer;
         background: black;
+        color: white;
+    }
+    .list_item:hover .stock_symbol{
         color: white;
     }
     .main{
@@ -165,7 +185,6 @@ export default {
         height: calc(100vh - 60px);
         display: flex;
         justify-content: space-evenly;
-
     }
     .chart{
         width: calc(100% - 350px);
