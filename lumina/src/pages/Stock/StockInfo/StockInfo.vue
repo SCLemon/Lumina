@@ -265,7 +265,6 @@ export default {
         },
         // 更新最後一根
         updateChart(){
-            console.log(this.info,this.info.total.tradeVolume)
             if(this.info){
                 const lastOhlcPoint = this.chart.series[0].data.at(-1);
                 lastOhlcPoint.update([this.info.lastUpdated/1000,this.info.openPrice,this.info.highPrice,this.info.lowPrice,this.info.closePrice], true);
