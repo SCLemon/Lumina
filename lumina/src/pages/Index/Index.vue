@@ -4,7 +4,7 @@
             <div class="logo"><img class="logo_img" src="img/logo_trans.png" alt="" @click="goTo('/')"></div>
             <div class="contact">
                 <div class="contact_item" @click="scrollToSection('introduction')">平台介紹</div>
-                <div class="contact_item" @click="scrollToSection('feature')">平台特色</div>
+                <div class="contact_item" @click="goHerf('#')">設計文件</div>
                 <div class="contact_item" @click="goHref('https://github.com/SCLemon/Lumina')">原始代碼</div>
                 <div class="contact_item" @click="scrollToSection('contact')">聯絡我們</div>
             </div>
@@ -34,35 +34,33 @@
             <div class="intro_title_1">平台介紹</div>
             <div class="intro_simple_box">
                 <div class="intro_simple">
-                    <div class="intro_text_title">🌐 雲端教育的全新體驗 — 為教學而生的智慧平台</div>
+                    <div class="intro_text_title">📈 即時行情・智慧決策 — 為投資而生的 AI 分析平台</div>
                     <div class="intro_text">
-                        本平台是一款專為雲端教學量身打造的教育管理系統，適用於個人家教、補習班、以及各類教學機構，協助用戶輕鬆管理學生、課程與教材內容。
-                        我們以「簡潔直觀、快速上手」為設計核心，讓每位教育工作者都能無痛轉型數位教學，輕鬆掌握現代化教學需求。
+                        本平台是一款專為投資人與金融分析師打造的智慧決策工具，結合即時股價資料、多重技術指標與 AI 輔助預測，協助用戶全面掌握市場動態。
+                        我們以「資訊透明、數據整合、操作簡易」為設計核心，無論是新手還是資深操盤者，都能迅速上手，做出更快、更準確的交易判斷。
                     </div>
-                    <div class="intro_text_title">🎗 推動教育平權 — 我們一起努力</div>
+                    <div class="intro_text_title">🔄 資料汲取流暢不間斷 — 實時更新，無縫連接</div>
                     <div class="intro_text">
-                        我們相信，知識應該是無價的。
-                        因此，若您正致力於扶助弱勢、並為弱勢學子提供免費教學資源，歡迎向我們申請公益使用資格。<br>
-                        ✨ 經審核通過後，我們將全額提供平台使用額度，完全免費，與您攜手打造更有希望的未來。
+                        平台採用先進的資料抓取技術，確保所有市場數據、股價資訊與經濟指標能實時更新，並無縫呈現在用戶介面上。資料流動順暢無阻，無論您在查看即時股價還是監控多重技術指標，所有資訊皆可即時反映，避免任何延遲或中斷，讓您每一刻都能掌握市場的最新變化。
                     </div>
                 </div>
-                <div class="intro_img"><img src="img/volunteer.jpg" alt=""></div>
+                <div class="intro_img"><img src="img/fast.jpg" alt=""></div>
             </div>
         </div>
         <div class="intro" ref="feature">
             <div class="intro_title_2">平台特色</div>
             <div class="intro_simple_box">
-                <div class="intro_img"><img src="img/lock.jpg" alt=""></div>
+                <div class="intro_img"><img src="img/news.jpg" alt=""></div>
                 <div class="intro_simple">
-                    <div class="intro_text_title">🎯 特色一：極簡操作介面，零學習曲線上手</div>
+                    <div class="intro_text_title">🎯 特色一：極簡操作介面，AI 輔助預測零門檻</div>
                     <div class="intro_text">
-                        平台採用現代化介面設計，操作邏輯直覺清晰，無需繁瑣設定與技術背景即可快速上手。
-                        不論是排課、上傳教材，還是管理學生資訊，皆可透過簡單幾步完成，大幅降低教學行政負擔。
+                        平台採用現代化設計與 AI 輔助分析技術，操作流程直覺簡單，無需程式背景與繁瑣設定即可輕鬆上手。
+                        不論是查詢個股趨勢、觀察技術指標，或進行預測分析，都能在幾個步驟內完成，協助使用者快速掌握市場脈動，做出更聰明的投資決策。
                     </div>
-                    <div class="intro_text_title">🔐 特色二：嚴謹的隱私與資料保護機制</div>
+                    <div class="intro_text_title">📰 特色二：即時新聞整合與經濟數據統整</div>
                     <div class="intro_text">
-                        我們深知教育數據的敏感性，因此平台採用資料分群隔離以及嚴格的權限控管機制，保障學生與教師的個資與智慧財產權。
-                        本平台同時支援多層身份驗證機制，可以大幅降低有心人士的侵擾，使用戶與學生能夠獲得安全的教育環境。
+                        掌握市場脈動從未如此簡單。本平台串接多元財經媒體與官方經濟資料來源，提供即時新聞推播與關鍵經濟指標整理，讓使用者第一時間掌握全球市場變化。
+                        不論是突發消息、總經趨勢，還是利率、通膨等數據更新，幫助投資人迅速消化資訊，做出理性判斷。
                     </div>
                 </div>              
             </div>

@@ -6,7 +6,7 @@
         <div class="news_title">{{ obj.title }}</div>
       </div>
       <div class="news_right">
-        <img :src="obj.coverSrc.s.src" alt="">
+        <img :src="(obj.coverSrc && obj.coverSrc.s)?obj.coverSrc.s.src:''" alt="">
       </div>
     </div>
     <el-dialog :visible.sync="dialogTableVisible">

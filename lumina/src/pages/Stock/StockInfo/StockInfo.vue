@@ -102,7 +102,7 @@ export default {
     async mounted(){
         this.initialize();
     },
-    beforeDestroyed(){
+    beforeDestroy(){
         this.chart.destroy();
         clearInterval(this.timer)
     },
@@ -116,7 +116,7 @@ export default {
             await this.getData();
             this.timer = setInterval(() => {
                 this.update()
-            }, 2000);
+            }, 3000);
         },
 
         // 判斷價格與前日價格的差異並顯示對應顏色
@@ -134,7 +134,7 @@ export default {
         // 獲取當日資料
         async getInfo(){
             const res = await axios.get(`/stock/getInfo?symbol=${this.symbol}`)
-            this.info = res.data;
+            if(!res.data.statusCode) this.info = res.data;
         },
         // 獲取歷史資料
         async getData(){
