@@ -134,6 +134,7 @@ export default {
             };
 
             // 添加當日即時資料
+            console.log(this.info.total.tradeVolume)
             if(format(new Date(this.info.lastUpdated/1000),'yyyy-MM-dd') == format(new Date(),'yyyy-MM-dd')){
                 ohlc.push([this.info.lastUpdated/1000,this.info.openPrice,this.info.highPrice,this.info.lowPrice,this.info.closePrice])
                 volume.push([this.info.lastUpdated/1000,this.info.total.tradeVolume])
@@ -264,10 +265,13 @@ export default {
         },
         // 更新最後一根
         updateChart(){
-            const lastOhlcPoint = this.chart.series[0].data.at(-1);
-            lastOhlcPoint.update([this.info.lastUpdated/1000,this.info.openPrice,this.info.highPrice,this.info.lowPrice,this.info.closePrice], true);
-            const lastVolumePoint = this.chart.series[1].data.at(-1);
-            lastVolumePoint.update([this.info.lastUpdated/1000,this.info.total.tradeVolume], true);
+            console.log(this.info,this.info.total.tradeVolume)
+            if(this.info){
+                const lastOhlcPoint = this.chart.series[0].data.at(-1);
+                lastOhlcPoint.update([this.info.lastUpdated/1000,this.info.openPrice,this.info.highPrice,this.info.lowPrice,this.info.closePrice], true);
+                const lastVolumePoint = this.chart.series[1].data.at(-1);
+                lastVolumePoint.update([this.info.lastUpdated/1000,this.info.total.tradeVolume*1000], true);
+            }
         }
     },
 }

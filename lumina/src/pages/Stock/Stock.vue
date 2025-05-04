@@ -65,7 +65,14 @@ export default {
         async getData(){
             const twse = await (await axios.get(`/stock/list?exchange=TWSE`)).data.data
             const tpex = await (await axios.get(`/stock/list?exchange=TPEx`)).data.data
-            this.list = twse.concat(tpex);
+            if(twse && tpex){
+                this.list = twse.concat(tpex);
+            }
+            else{
+                setTimeout(async () => {
+                    await this.getData();
+                }, 1000);
+            }
         },
     }
 }
