@@ -54,7 +54,7 @@ router.get('/stock/history',(req,res)=>{
 
 router.get('/stock/news',async (req,res)=>{
     const page = req.query.page?req.query.page:1;
-    const response = await axios.get(`https://api.cnyes.com/media/api/v1/newslist/category/headline?page=${page}&limit=10`);
+    const response = await axios.get(`https://api.cnyes.com/media/api/v1/newslist/category/headline?page=${page}&limit=5`);
     res.send(response.data.items.data)
 })
 

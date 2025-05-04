@@ -9,6 +9,9 @@
         <img :src="obj.coverSrc.s.src" alt="">
       </div>
     </div>
+    <el-dialog :visible.sync="dialogTableVisible">
+      <iframe class="iframe" :src="iframeSrc"></iframe>
+    </el-dialog>
   </div>
 </template>
 <!-- https://news.cnyes.com/news/id/123 -->
@@ -21,6 +24,8 @@ export default {
         news:[],
         page:1,
         isLoaded:false,
+        dialogTableVisible: false,
+        iframeSrc:'',
       }
     },
     mounted(){
@@ -40,7 +45,8 @@ export default {
         this.isLoaded = true;
       },
       openNews(id){
-        window.open(`https://news.cnyes.com/news/id/${id}`,'_blank');
+        this.iframeSrc = `https://news.cnyes.com/news/id/${id}`;
+        this.dialogTableVisible = true;
       },
       async handleScroll(){
         const list = this.$refs.list;
@@ -107,5 +113,19 @@ export default {
       -webkit-box-orient: vertical;
       overflow: hidden;
       text-overflow: ellipsis;
+    }
+    ::v-deep .el-dialog{
+      width: 85vw;
+      height: 85vh;
+      margin-top: 7vh !important;
+    }
+    ::v-deep .el-dialog__body{
+      height: 100%;
+      width: 100%;
+    }
+    .iframe{
+      width: 100%;
+      height: 100%;
+      border: none;
     }
 </style>
