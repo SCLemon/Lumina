@@ -1,6 +1,6 @@
 
 # Lumina Stock AI
-![Banner](./banner.png)
+![Banner](./lumina_banner.png)
 
 ## Authors
 
