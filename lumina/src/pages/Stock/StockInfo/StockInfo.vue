@@ -40,6 +40,18 @@
                     </div>
                 </div>
             </div>
+            <div class="scrollBox">
+                <div class="ai"></div>
+                <div class="others">
+                    <div class="others_select">
+                        <div :class="`others_select_item others_select_item_left ${others_status==0?'others_selected':''}`" @click="others_status = 0">時事新聞</div>
+                        <div :class="`others_select_item others_select_item_right ${others_status==1?'others_selected':''}`" @click="others_status = 1">經濟數據</div>
+                    </div>
+                    <div class="others_component">
+                        <StockNews v-if="others_status == 0"></StockNews>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
   </div>
@@ -48,6 +60,7 @@
 <script>
 import axios from 'axios'
 import {format} from 'date-fns'
+import StockNews from './components/StockNews.vue'
 export default {
     name:'StockInfo',
     data(){
@@ -56,7 +69,11 @@ export default {
             symbol:2330,
             timer:0,
             info:{},
+            others_status:0,
         }
+    },
+    components:{
+        StockNews
     },
     watch:{
         '$route.query':{
@@ -134,10 +151,11 @@ export default {
             };
 
             // 添加當日即時資料
-            console.log(this.info.total.tradeVolume)
-            if(format(new Date(this.info.lastUpdated/1000),'yyyy-MM-dd') == format(new Date(),'yyyy-MM-dd')){
-                ohlc.push([this.info.lastUpdated/1000,this.info.openPrice,this.info.highPrice,this.info.lowPrice,this.info.closePrice])
-                volume.push([this.info.lastUpdated/1000,this.info.total.tradeVolume])
+            if(this.info && this.info.lastUpdated){
+                if(format(new Date(this.info.lastUpdated/1000),'yyyy-MM-dd') == format(new Date(),'yyyy-MM-dd')){
+                    ohlc.push([this.info.lastUpdated/1000,this.info.openPrice,this.info.highPrice,this.info.lowPrice,this.info.closePrice])
+                    volume.push([this.info.lastUpdated/1000,this.info.total.tradeVolume])
+                }
             }
 
             Highcharts.setOptions({
@@ -265,7 +283,7 @@ export default {
         },
         // 更新最後一根
         updateChart(){
-            if(this.info){
+            if(this.info && this.info.total){
                 const lastOhlcPoint = this.chart.series[0].data.at(-1);
                 lastOhlcPoint.update([this.info.lastUpdated/1000,this.info.openPrice,this.info.highPrice,this.info.lowPrice,this.info.closePrice], true);
                 const lastVolumePoint = this.chart.series[1].data.at(-1);
@@ -295,14 +313,12 @@ export default {
         position: relative;
     }
     .column{
-        padding-top: 12px;
+        padding-bottom: 20px;
         width: 350px;
         height: calc(100vh - 60px);
-        overflow-y: scroll;
     }
     .detail{
         width: 100%;
-        height: 350px;
     }
     .stock_title{
         font-size: 14px;
@@ -374,7 +390,6 @@ export default {
     }
     .fiveList_box{
         width: 88%;
-        height: 200px;
         margin-top: 15px;
         display: flex;
         justify-content: space-between;
@@ -383,11 +398,9 @@ export default {
     }
     .aList{
         width: 45%;
-        height: 200px;
     }
     .bList{
         width: 45%;
-        height: 200px;
     }
     .fiveList_item_a{
         display: flex;
@@ -411,7 +424,6 @@ export default {
     .aSize{
         width: 0%;
         text-align: left;
-        
         background: rgb(249, 75, 75);
         color: white;
         padding-left: 3px;
@@ -442,6 +454,61 @@ export default {
     }
     .underline{
         border-bottom: 2px solid orange;
+    }
+    .scrollBox{
+        width: 88%;
+        height: calc(100% - 280px);
+        margin-top: 15px;
+        overflow-y:scroll;
+    }
+    .ai{
+        width: 100%;
+        height: 200px;
+        margin-top: 10px;
+        border: 1px solid red;
+    }
+    .others{
+        width: 100%;
+        height: 200px;
+        margin-top: 10px;
+    }
+    .others_select{
+        width: 100%;
+        height: 25px;
+        background: rgb(240,240,240);
+        border-radius: 5px;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    .others_select_item{
+        width: 50%;
+        height: 25px;
+        text-align: center;
+        line-height: 25px;
+        font-size: 12px;
+    }
+    .others_select_item_left{
+        border-right: 1px solid white;
+        border-radius: 5px 0 0 5px;
+    }
+    .others_select_item_right{
+        border-radius: 0 5px 5px 0;
+    }
+    .others_select_item:hover{
+        cursor: pointer;
+        background: rgb(170,170,170);
+        color: white;
+    }
+    .others_selected{
+        background: rgb(190,190,190);
+        color: white;
+    }
+    .others_component{
+        width: 100%;
+        height: 100px;
+        z-index: -1;
     }
     .green{
         color: #27de27;

@@ -8,6 +8,8 @@ const client = new RestClient({ apiKey: apiKey });
 const stock = client.stock;
 
 const {format} = require('date-fns');
+const axios = require('axios');
+
 
 router.get('/stock/getInfo',(req,res)=>{
     var symbol = req.query.symbol;
@@ -50,4 +52,18 @@ router.get('/stock/history',(req,res)=>{
     })
 })
 
+router.get('/stock/news',async (req,res)=>{
+    const page = req.query.page?req.query.page:1;
+    const response = await axios.get(`https://api.cnyes.com/media/api/v1/newslist/category/headline?page=${page}&limit=10`);
+    res.send(response.data.items.data)
+})
+
+router.get('/stock/economy',(req,res)=>{
+
+})
+
+
+function crawlerNews(){
+    
+}
 module.exports = router;
