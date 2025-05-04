@@ -8,8 +8,8 @@
                 <div class="stock_price_box">
                     <div class="stock_price">{{ info.lastPrice }}</div>
                     <div class="exchange">TWD</div>
-                    <div :class="`price_change ${info.change>0?'green':info.change<0?'red':'black'}`">{{info.change>=0?'+':''}}{{ info.change }}</div>
-                    <div :class="`price_percent ${info.change>0?'green':info.change<0?'red':'black'}`">{{info.change>=0?'+':''}}{{ info.changePercent }}%</div>
+                    <div :class="`price_change ${info.change>0?'red':info.change<0?'green':'black'}`">{{info.change>=0?'+':''}}{{ info.change }}</div>
+                    <div :class="`price_percent ${info.change>0?'red':info.change<0?'green':'black'}`">{{info.change>=0?'+':''}}{{ info.changePercent }}%</div>
                 </div>
                 <div class="compare">
                     <div class="total_bids" :style="`width:${compare_bids}%`">{{ info.total?info.total.tradeVolumeAtBid:0 }}</div>
@@ -102,7 +102,7 @@ export default {
 
         // 判斷價格與前日價格的差異並顯示對應顏色
         showColor(price){
-            return price>this.info.referencePrice?'green':price<this.info.referencePrice?'red':'black'
+            return price>this.info.referencePrice?'red':price<this.info.referencePrice?'green':'black'
         },
         // 委買賣比例
         showLength(target, size){
@@ -341,13 +341,13 @@ export default {
     }
     .total_bids{
         width: 50%;
-        background: rgb(249, 75, 75);
+        background: #27de27;
         transition: width 0.5s;
         padding-left: 5px;
     }
     .total_asks{
         width: 0%;
-        background: #27de27;
+        background: rgb(249, 75, 75);
         transition: width 0.5s;
         text-align: right;
         padding-right: 5px;
@@ -408,7 +408,8 @@ export default {
     .aSize{
         width: 0%;
         text-align: left;
-        background: #27de27;
+        
+        background: rgb(249, 75, 75);
         color: white;
         padding-left: 3px;
         font-size: 9px;
@@ -422,7 +423,7 @@ export default {
     .bSize{
         width: 0%;
         text-align: right;
-        background: rgb(249, 75, 75);
+        background: #27de27;
         color: white;
         padding-right: 3px;
         font-size: 9px;
