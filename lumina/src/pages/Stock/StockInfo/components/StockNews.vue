@@ -50,7 +50,7 @@ export default {
       },
       async handleScroll(){
         const list = this.$refs.list;
-        if (list.scrollTop + list.clientHeight >= list.scrollHeight - 10) {
+        if (list.scrollTop + list.clientHeight >= list.scrollHeight - 30) {
           if(this.isLoaded){
             this.page++;
             await this.appendNews();
@@ -64,7 +64,7 @@ export default {
 <style scoped>
     .list{
         width:100%;
-        height: 300px;
+        height: 370px;
         padding-bottom: 20px;
         overflow-y: scroll;
     }

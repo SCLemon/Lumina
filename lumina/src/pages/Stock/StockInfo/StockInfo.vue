@@ -41,7 +41,7 @@
                 </div>
             </div>
             <div class="scrollBox">
-                <div class="ai"></div>
+                <div class="ai" v-if="0"></div>
                 <div class="others">
                     <div class="others_select">
                         <div :class="`others_select_item others_select_item_left ${others_status==0?'others_selected':''}`" @click="others_status = 0">時事新聞</div>
@@ -49,6 +49,7 @@
                     </div>
                     <div class="others_component">
                         <StockNews v-if="others_status == 0"></StockNews>
+                        <EconomicCalendar v-if="others_status == 1"></EconomicCalendar>
                     </div>
                 </div>
             </div>
@@ -61,6 +62,7 @@
 import axios from 'axios'
 import {format} from 'date-fns'
 import StockNews from './components/StockNews.vue'
+import EconomicCalendar from './components/EconomicCalendar.vue'
 export default {
     name:'StockInfo',
     data(){
@@ -73,13 +75,12 @@ export default {
         }
     },
     components:{
-        StockNews
+        StockNews,EconomicCalendar
     },
     watch:{
         '$route.query':{
             deep:true,
             async handler(){
-                clearInterval(this.timer);
                 this.initialize();
             }
         }
@@ -108,13 +109,14 @@ export default {
     methods:{
         // 初始化
         async initialize(){
+            clearInterval(this.timer);
             this.symbol = this.$route.query.symbol?this.$route.query.symbol:2330;
             this.name = this.$route.query.name?this.$route.query.name:'台積電'
             await this.getInfo();
             await this.getData();
             this.timer = setInterval(() => {
                 this.update()
-            }, 5000);
+            }, 2000);
         },
 
         // 判斷價格與前日價格的差異並顯示對應顏色
@@ -285,9 +287,11 @@ export default {
         updateChart(){
             if(this.info && this.info.total){
                 const lastOhlcPoint = this.chart.series[0].data.at(-1);
-                lastOhlcPoint.update([this.info.lastUpdated/1000,this.info.openPrice,this.info.highPrice,this.info.lowPrice,this.info.closePrice], true);
                 const lastVolumePoint = this.chart.series[1].data.at(-1);
-                lastVolumePoint.update([this.info.lastUpdated/1000,this.info.total.tradeVolume*1000], true);
+                if(lastOhlcPoint && lastVolumePoint){
+                    lastOhlcPoint.update([this.info.lastUpdated/1000,this.info.openPrice,this.info.highPrice,this.info.lowPrice,this.info.closePrice], true);
+                    lastVolumePoint.update([this.info.lastUpdated/1000,this.info.total.tradeVolume*1000], true);
+                }
             }
         }
     },
@@ -309,12 +313,12 @@ export default {
         justify-content: space-evenly;
     }
     .container{
-        width: calc(100vw - 350px);
+        width: calc(100vw - 400px);
         position: relative;
     }
     .column{
         padding-bottom: 20px;
-        width: 350px;
+        width: 400px;
         height: calc(100vh - 60px);
     }
     .detail{

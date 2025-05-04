@@ -1,0 +1,93 @@
+[
+  {
+    "id": "1062",
+    "dateTime": "2025/05/05 21:45:00",
+    "time": "21:45",
+    "country": "美國",
+    "currency": "USD",
+    "importance": "bull3",
+    "name": "服務業PMI  (4月)",
+    "link": "/economic-calendar/services-pmi-1062",
+    "actual": "",
+    "forecast": "51.4",
+    "previous": "54.4"
+  },
+  {
+    "id": "176",
+    "dateTime": "2025/05/05 22:00:00",
+    "time": "22:00",
+    "country": "美國",
+    "currency": "USD",
+    "importance": "bull3",
+    "name": "ISM非製造業PMI  (4月)",
+    "link": "/economic-calendar/ism-non-manufacturing-pmi-176",
+    "actual": "",
+    "forecast": "50.6",
+    "previous": "50.8"
+  },
+  {
+    "id": "75",
+    "dateTime": "2025/05/07 22:30:00",
+    "time": "22:30",
+    "country": "美國",
+    "currency": "USD",
+    "importance": "bull3",
+    "name": "原油庫存",
+    "link": "/economic-calendar/eia-crude-oil-inventories-75",
+    "actual": "",
+    "forecast": "",
+    "previous": "-2.696M"
+  },
+  {
+    "id": "398",
+    "dateTime": "2025/05/08 02:00:00",
+    "time": "02:00",
+    "country": "美國",
+    "currency": "USD",
+    "importance": "bull3",
+    "name": "FOMC聲明",
+    "link": "/economic-calendar/fomc-statement-398",
+    "actual": "",
+    "forecast": "",
+    "previous": ""
+  },
+  {
+    "id": "168",
+    "dateTime": "2025/05/08 02:00:00",
+    "time": "02:00",
+    "country": "美國",
+    "currency": "USD",
+    "importance": "bull3",
+    "name": "利率決議",
+    "link": "/economic-calendar/interest-rate-decision-168",
+    "actual": "",
+    "forecast": "4.50%",
+    "previous": "4.50%"
+  },
+  {
+    "id": "1692",
+    "dateTime": "2025/05/08 02:30:00",
+    "time": "02:30",
+    "country": "美國",
+    "currency": "USD",
+    "importance": "bull3",
+    "name": "美聯儲(FOMC)新聞發布會",
+    "link": "/economic-calendar/fomc-press-conference-1692",
+    "actual": "",
+    "forecast": "",
+    "previous": ""
+  },
+  {
+    "id": "294",
+    "dateTime": "2025/05/08 20:30:00",
+    "time": "20:30",
+    "country": "美國",
+    "currency": "USD",
+    "importance": "bull3",
+    "name": "初請失業金人數",
+    "link": "/economic-calendar/initial-jobless-claims-294",
+    "actual": "",
+    "forecast": "232K",
+    "previous": "241K"
+  }
+]
