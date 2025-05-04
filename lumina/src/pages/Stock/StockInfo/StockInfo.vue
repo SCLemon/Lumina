@@ -321,6 +321,14 @@ export default {
         text-align: right;
         padding-right: 5px;
     }
+    .total_asks:hover{
+        cursor: pointer;
+        outline: 1px solid rgb(230,230,230);
+    }
+    .total_bids:hover{
+        cursor: pointer;
+        outline: 1px solid rgb(230,230,230);
+    }
     .limit{
         width: 88%;
         margin-top: 15px;

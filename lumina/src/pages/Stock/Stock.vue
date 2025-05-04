@@ -112,7 +112,7 @@ export default {
         width: 0px;
         height: 40px;
         border-radius: 20px;
-        transition: all  1s;
+        transition: all  0.75s;
         direction: ltr;
         text-align: left;
         border: 1px solid rgb(230,230,230);
