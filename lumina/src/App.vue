@@ -14,6 +14,7 @@ export default {
   },
   mounted(){
     this.$bus.$on('handleAlert',(msg,type)=>this.handleAlert(msg,type));
+    
   },
 
   methods:{

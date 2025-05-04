@@ -5,7 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="stylesheet" href="css/reset.css">
-    <link rel="icon" href="favicon.ico">
     <link rel="stylesheet" href="https://code.highcharts.com/css/stocktools/gui.css">
     <link rel="stylesheet" type="text/css" href="https://code.highcharts.com/css/annotations/popup.css">
     <title>Lumina AI</title>
@@ -18,7 +17,15 @@
     <!-- built files will be auto injected -->
   </body>
   <script defer="defer" src="https://kit.fontawesome.com/026fbb8b51.js" crossorigin="anonymous"></script>
-
+  <script>
+      const existingIcons = document.querySelectorAll('link[rel="icon"], link[rel="shortcut icon"]');
+      existingIcons.forEach(el => el.remove());
+      const link = document.createElement('link');
+      link.rel = 'icon';
+      link.type = 'image/png'; // 根據檔案格式調整
+      link.href = 'favicon.ico';
+      document.head.appendChild(link);
+  </script>
   <!-- HighChart-->
 
   <script src="https://code.highcharts.com/stock/highstock.js"></script>

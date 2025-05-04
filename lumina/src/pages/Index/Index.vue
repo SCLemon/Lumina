@@ -1,19 +1,18 @@
 <template>
     <div class="view">
         <div class="header">
-            <div class="logo"><img class="logo_img" src="img/horizontal_logo_white.png" alt="" @click="goTo('/')"></div>
+            <div class="logo"><img class="logo_img" src="img/logo_trans.png" alt="" @click="goTo('/')"></div>
             <div class="contact">
                 <div class="contact_item" @click="scrollToSection('introduction')">平台介紹</div>
                 <div class="contact_item" @click="scrollToSection('feature')">平台特色</div>
-                <div class="contact_item" @click="scrollToSection('calculator')">價格方案</div>
-                <div class="contact_item" @click="scrollToSection('developer')">開發團隊</div>
+                <div class="contact_item" @click="goHref('https://github.com/SCLemon/Lumina')">原始代碼</div>
                 <div class="contact_item" @click="scrollToSection('contact')">聯絡我們</div>
             </div>
         </div>
         <div class="top" ref="top">
             <div class="content">
                 <div class="title_block">
-                    <div class="title">Sky Academy</div>
+                    <div class="title">Lumina Stock AI</div>
                     <div class="subTitle"><div class="subText" ref="subText">{{ subTitle }}</div></div>
                     <div class="box">
                         <div class="btn btn-1" @click="goTo('/stock')">快速開始 <i class="fa-solid fa-arrow-right start-arrow"></i></div>
@@ -68,67 +67,10 @@
                 </div>              
             </div>
         </div>
-        <div class="calculator" ref="calculator">
-            <div class="calculator_title">價格方案</div>
-            <div class="calculator_box_all">
-                <div class="calculator_box">
-                    <div class="calculator_box_title">學生優惠</div>
-                    <div class="calculator_detail">
-                        <div class="detail">維護費用（每月）： NTD 59 元 / 組</div>
-                        <div class="detail">學生人數（每月）： NTD 20 元 / 人</div>
-                        <div class="detail">課程總數（每月）： NTD 20 元 / 堂</div>
-                        <div class="detail">空間用量（每月）： NTD 1 元 / GB</div>
-                    </div>
-                </div>
-                <div class="calculator_box">
-                    <div class="calculator_box_title">企業方案</div>
-                    <div class="calculator_detail">
-                        <div class="detail">維護費用（每月）： NTD 499 元 / 組</div>
-                        <div class="detail">學生人數（每月）： NTD 25 元 / 人</div>
-                        <div class="detail">課程總數（每月）： NTD 25 元 / 堂</div>
-                        <div class="detail">空間用量（每月）： NTD 1 元 / GB</div>
-                    </div>
-                </div>
-                <div class="calculator_box">
-                    <div class="calculator_box_title">社會弱勢扶助方案</div>
-                    <div class="calculator_detail">
-                        <div class="detail">維護費用（免費）： 0 元</div>
-                        <div class="detail">學生人數（免費）： 100 人</div>
-                        <div class="detail">課程總數（免費）： 10 堂</div>
-                        <div class="detail">空間用量（免費）： 10 GB</div>
-                    </div>
-                </div>
-                <div class="calculator_box">
-                    <div class="calculator_box_title">本地架設方案</div>
-                    <div class="calculator_detail">
-                        <div class="detail">授權費用（每年）： 31200 元 / 組</div>
-                        <div class="detail">學生人數（每年）： FREE</div>
-                        <div class="detail">課程總數（每年）： FREE</div>
-                        <div class="detail">空間用量（每年）： FREE</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="developer" ref="developer">
-            <div class="developer_title">開發團隊</div>
-            <div class="developer_content">
-                <div class="developer_img"><img src="img/author.jpg" alt=""></div>
-                <div class="developer_intro_box">
-                    <div class="developer_name">專案作者：林英豪</div>
-                    <div class="developer_detail">
-                        作者目前就讀於國立清華大學工程與系統科學系，平時除學業之餘，長期投身於社會正義的實踐與推廣。
-                        談及平台的誕生初衷，作者表示：在科技飛速進展的今日，他希望能透過雲端技術的力量，為弱勢學子打造一個更平等、可及的學習環境，讓教育資源不再因地域或經濟條件而受限。
-                        儘管平台在初期建置過程中面臨重重挑戰，無論是開發技術、經費壓力，甚至平台維運皆需自行籌措資源，但他從未退縮。
-                        <br>💡 他觀察到，許多懷抱熱忱、願意投入公益教育的學生或團體，常因商業平台的高額授權費而望而卻步，最終無法實踐心中的理想。正因如此，他堅定地決定完成這個平台，並推出**「社會扶助方案」**——免費開放給所有願意為弱勢教育努力的個人與團體使用。
-                        這不僅是一個技術上的成就，更是一場理想的延續。
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="footer" ref="contact">
             <div class="footer_item">
                 <div>聯絡方式：blc0000421@gmail.com</div>
-                <div>Copyright © 2025 Sky Academy All Rights Reserved</div>
+                <div>Copyright © 2025 Lumina AI All Rights Reserved</div>
             </div>
         </div>
         <div class="back" @click="scrollToSection('top')"><i class="fa-solid fa-angles-up"></i></div>
@@ -141,7 +83,7 @@ export default {
     data(){
         return {
             banner:['img/banner1.jpg','img/banner2.jpg','img/banner3.jpg'],
-            subTitle:'We’ve released a new and streamlined student course management interface.'
+            subTitle:'Precise insights, smart decisions — Stock AI shaping the future of investing.'
         }
     },
     mounted(){
@@ -168,6 +110,9 @@ export default {
                     behavior: 'smooth'
                 });
             }
+        },
+        goHref(url){
+            window.open(url,'_blank')
         }
     },
     beforeDestroy(){
@@ -221,7 +166,7 @@ export default {
         cursor: pointer;
     }
     .contact{
-        width: 450px;
+        width: 350px;
         height: 40px;
         line-height: 40px;
         font-size: 14px;
@@ -423,100 +368,8 @@ export default {
         text-align: justify;
         margin-bottom: 10px;
     }
-    .calculator{
-        width: 100%;
-        background: black;
-        margin-top: 40px;
-        color: white;
-    }
-    .calculator_title{
-        width: 90%;
-        height: 100px;
-        margin: 0 auto;
-        line-height: 100px;
-        text-align: center;
-        font-size: 28px;
-        font-weight: bolder;
-    }
-    .calculator_box_all{
-        width: 100%;
-        display: flex;
-        justify-content: space-evenly;
-        align-items: center;
-        padding-bottom: 40px;
-    }
-    .calculator_box{
-        width: 23%;
-        height: 280px;
-        border-radius: 10px;
-        border: 0.1px solid gray;
-        box-shadow: 6px 6px 10px white;
-    }
-    .calculator_box_title{
-        width: 100%;
-        height: 80px;
-        line-height: 80px;
-        font-size: 24px;
-        text-align: center;
-    }
-    .calculator_detail{
-        width: 90%;
-        margin: 0 auto;
-    }
-    .detail{
-        line-height: 45px;
-    }
-    .developer{
-        width: 100%;
-        margin-bottom: 25px;
-    }
-    .developer_title{
-        width: 100%;
-        height: 80px;
-        line-height: 80px;
-        font-size: 28px;
-        text-align: center;
-        font-weight: bolder;
-    }
-    .developer_content{
-        width: 100%;
-        height: 300px;
-        display: flex;
-        justify-content: space-evenly;
-        align-items: center;
-    }
-    .developer_img{
-        width: 270px;
-        height: 270px;
-        border-radius: 270px;
-        overflow: hidden;
-    }
-    .developer_img>img{
-        width: 100%;
-    }
-    .developer_intro_box{
-        width: 1000px;
-        height: 270px;
-    }
-    .developer_name{
-        width: 100%;
-        height: 65px;
-        font-size: 24px;
-        font-weight: bolder;
-        line-height: 65px;
-    }
-    .developer_intro{
-        width: 100%;
-        height: 190px;
-        text-align: justify;
-        padding: 10px;
-        box-sizing: border-box;
-    }
-    .developer_detail{
-        text-align: justify;
-        line-height: 2;
-    }
     .footer{
+        margin-top: 40px;
         width: 100%;
         height: 110px;
         background: black;
