@@ -15,12 +15,7 @@
                 <i class="el-icon-search search_icon" @click="toggleSearchInput()"></i>
             </div>
         </div>
-        <div class="main">
-            <div class="chart">
-                <router-view></router-view>
-            </div>
-            <div class="column"></div>
-        </div>
+        <router-view></router-view>
     </div>
 </template>
 
@@ -49,28 +44,29 @@ export default {
        this.getData();   
     },
     methods:{
-        async getData(){
-            const twse = await (await axios.get(`/stock/list?exchange=TWSE`)).data.data
-            const tpex = await (await axios.get(`/stock/list?exchange=TPEx`)).data.data
-            this.list = twse.concat(tpex);
+        goIndex(){
+            this.$router.push('/').catch(e=>{})
         },
         toggleSearchInput(){
             this.$refs.search_input.classList.toggle('search_input_open')
             this.input = '';
         },
         goTo(stock){
+            this.toggleSearchInput();
             this.$router.push({
                 path:'/stock/stockInfo',
                 query:{
+                    name:stock.name,
                     symbol:stock.symbol,
                     timestamp:Date.now(),
                 }
             }).catch(e=>{})
-            this.toggleSearchInput();
         },
-        goIndex(){
-            this.$router.push('/').catch(e=>{})
-        }
+        async getData(){
+            const twse = await (await axios.get(`/stock/list?exchange=TWSE`)).data.data
+            const tpex = await (await axios.get(`/stock/list?exchange=TPEx`)).data.data
+            this.list = twse.concat(tpex);
+        },
     }
 }
 </script>
@@ -164,6 +160,7 @@ export default {
         height: 40px;
         line-height: 40px;
         display: flex;
+        background: white;
     }
     .stock_name{
         margin-right: auto;
@@ -179,20 +176,5 @@ export default {
     }
     .list_item:hover .stock_symbol{
         color: white;
-    }
-    .main{
-        width: 100vw;
-        height: calc(100vh - 60px);
-        display: flex;
-        justify-content: space-evenly;
-    }
-    .chart{
-        width: calc(100% - 350px);
-        height: 100%;
-    }
-    .column{
-        width: 350px;
-        height: 100%;
-        overflow-y: scroll;
     }
 </style>
