@@ -47,6 +47,7 @@
 
 <script>
 import axios from 'axios'
+import {format} from 'date-fns'
 export default {
     name:'StockInfo',
     data(){
@@ -61,17 +62,14 @@ export default {
         '$route.query':{
             deep:true,
             async handler(){
-                this.symbol = this.$route.query.symbol?this.$route.query.symbol:2330;
-                this.name = this.$route.query.name?this.$route.query.name:'台積電'
-                await this.getData();
-                await this.getInfo();
+                clearInterval(this.timer);
+                this.initialize();
             }
         }
     },
     computed:{
         compare_bids(){
             if(this.info && this.info.total && this.info.total.tradeVolume){
-                console.log((this.info.total.tradeVolumeAtBid / this.info.total.tradeVolume).toFixed(4)*100)
                 return ((this.info.total.tradeVolumeAtBid / this.info.total.tradeVolume).toFixed(4)*100).toFixed(2)
             }
             else return 0
@@ -84,19 +82,29 @@ export default {
         },
     },
     async mounted(){
-        this.symbol = this.$route.query.symbol?this.$route.query.symbol:2330;
-        this.name = this.$route.query.name?this.$route.query.name:'台積電'
-
-        await this.getData()
-        await this.getInfo();
+        this.initialize();
     },
     beforeDestroyed(){
         this.chart.destroy();
+        clearInterval(this.timer)
     },
     methods:{
+        // 初始化
+        async initialize(){
+            this.symbol = this.$route.query.symbol?this.$route.query.symbol:2330;
+            this.name = this.$route.query.name?this.$route.query.name:'台積電'
+            await this.getInfo();
+            await this.getData();
+            this.timer = setInterval(() => {
+                this.update()
+            }, 5000);
+        },
+
+        // 判斷價格與前日價格的差異並顯示對應顏色
         showColor(price){
             return price>this.info.referencePrice?'green':price<this.info.referencePrice?'red':'black'
         },
+        // 委買賣比例
         showLength(target, size){
             if(this.info && size){
                 const maxSize = Math.max(...this.info[target].map(t => t.size));
@@ -104,14 +112,17 @@ export default {
             }
             else return 0;
         },
-        async getData(){
-            const response = await axios.get(`/stock/history?symbol=${this.symbol}`);
-            this.drawChart(response.data)
-        },
+        // 獲取當日資料
         async getInfo(){
             const res = await axios.get(`/stock/getInfo?symbol=${this.symbol}`)
             this.info = res.data;
         },
+        // 獲取歷史資料
+        async getData(){
+            const response = await axios.get(`/stock/history?symbol=${this.symbol}`);
+            this.drawChart(response.data)
+        },
+        // 首次繪圖
         drawChart(rawData){
             const  groupingUnits = [['day',[1]],['week',[1]], ['month',[1, 2, 3, 4, 6]]];
             const ohlc = []
@@ -121,6 +132,13 @@ export default {
                 ohlc.push([d[i][0],d[i][1],d[i][2],d[i][3],d[i][4]])
                 volume.push([d[i][0],d[i][5]])
             };
+
+            // 添加當日即時資料
+            if(format(new Date(this.info.lastUpdated/1000),'yyyy-MM-dd') == format(new Date(),'yyyy-MM-dd')){
+                ohlc.push([this.info.lastUpdated/1000,this.info.openPrice,this.info.highPrice,this.info.lowPrice,this.info.closePrice])
+                volume.push([this.info.lastUpdated/1000,this.info.total.tradeVolume])
+            }
+
             Highcharts.setOptions({
                 lang: {
                     decimalPoint: '.',
@@ -238,6 +256,19 @@ export default {
                 }]
             });
         },
+
+        // 定時更新資料
+        async update(){
+            await this.getInfo();
+            this.updateChart();
+        },
+        // 更新最後一根
+        updateChart(){
+            const lastOhlcPoint = this.chart.series[0].data.at(-1);
+            lastOhlcPoint.update([this.info.lastUpdated/1000,this.info.openPrice,this.info.highPrice,this.info.lowPrice,this.info.closePrice], true);
+            const lastVolumePoint = this.chart.series[1].data.at(-1);
+            lastVolumePoint.update([this.info.lastUpdated/1000,this.info.total.tradeVolume], true);
+        }
     },
 }
 </script>

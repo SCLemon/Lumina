@@ -31,11 +31,13 @@ router.get('/stock/list',(req,res)=>{
 })
 
 router.get('/stock/history',(req,res)=>{
-    var date = format(new Date()-360*86400*1000,'yyyy-MM-dd')
+    var from = format(new Date()-360*86400*1000,'yyyy-MM-dd')
+    var to = format(new Date()-86400*1000,'yyyy-MM-dd')
     var symbol = req.query.symbol;
     stock.historical.candles({
         symbol:symbol,
-        from:date,
+        from:from,
+        to:to,
         fields:'open,high,low,close,volume',
     })
     .then(data=>{
