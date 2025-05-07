@@ -39,6 +39,33 @@
                         </div>
                     </div>
                 </div>
+                <div class="tradeDetail">
+                    <template>
+                        <el-table :data="tableData" style="width: 100%; " empty-text="暫無交易明細">
+                            <el-table-column prop="time" label="時間" :formatter="formatTime" width="70.4px"></el-table-column>
+                            <el-table-column prop="bid" label="買進" width="70.4px">
+                                <template slot-scope="scope">
+                                    <span :class="`${showColor(scope.row.bid)}`">{{ scope.row.bid }}</span>
+                                </template>
+                            </el-table-column>
+                            <el-table-column prop="ask" label="賣出" width="70.4px">
+                                <template slot-scope="scope">
+                                    <span :class="`${showColor(scope.row.ask)}`">{{ scope.row.ask }}</span>
+                                </template>
+                            </el-table-column>
+                            <el-table-column prop="price" label="成交" width="70.4px">
+                                <template slot-scope="scope">
+                                    <span :class="`${showColor(scope.row.price)}`">{{ scope.row.price }}</span>
+                                </template>
+                            </el-table-column>
+                            <el-table-column prop="size" label="單量" width="70.4px">
+                                <template slot-scope="scope">
+                                    <span :style="{color: scope.row.price > scope.row.bid? 'rgb(249, 75, 75)' : '#27de27' }">{{ scope.row.size }}</span>
+                                </template>
+                            </el-table-column>
+                        </el-table>
+                    </template>
+                </div>
             </div>
             <div class="scrollBox">
                 <div class="ai" v-if="0"></div>
@@ -71,6 +98,8 @@ export default {
             symbol:2330,
             timer:0,
             info:{},
+            history:[],
+            tableData:[],
             others_status:0,
         }
     },
@@ -101,9 +130,13 @@ export default {
     },
     async mounted(){
         this.initialize();
+        window.addEventListener('resize', this.handleResize);
     },
     beforeDestroy(){
-        this.chart.destroy();
+        window.removeEventListener('resize', this.handleResize);
+        if (this.chart) {
+            this.chart.destroy();
+        }
         clearInterval(this.timer)
     },
     methods:{
@@ -116,9 +149,14 @@ export default {
             await this.getData();
             this.timer = setInterval(() => {
                 this.update()
-            }, 3000);
+            }, 1500);
         },
-
+        // 重新調整尺寸
+        handleResize() {
+            if (this.chart) {
+                this.drawChart(this.history);
+            }
+        },
         // 判斷價格與前日價格的差異並顯示對應顏色
         showColor(price){
             return price>this.info.referencePrice?'red':price<this.info.referencePrice?'green':'black'
@@ -131,14 +169,24 @@ export default {
             }
             else return 0;
         },
+        // 交易明細時間
+        formatTime(row) {
+            // 假設原始 time 是 ISO 格式，例如 "2025-05-07T13:45:00"
+            const time = new Date(row.time)/1000;
+            return format(new Date(time), 'HH:mm:ss'); // 回傳格式化後的時間字串
+        },
         // 獲取當日資料
         async getInfo(){
             const res = await axios.get(`/stock/getInfo?symbol=${this.symbol}`)
-            if(!res.data.statusCode) this.info = res.data;
+            if(!res.data.statusCode){
+                this.info = res.data;
+                this.tableData = [res.data.lastTrade];
+            }
         },
         // 獲取歷史資料
         async getData(){
             const response = await axios.get(`/stock/history?symbol=${this.symbol}`);
+            this.history = response.data;
             this.drawChart(response.data)
         },
         // 首次繪圖
@@ -314,12 +362,14 @@ export default {
     }
     .container{
         width: calc(100vw - 400px);
+        height: calc(100vh - 60px);
         position: relative;
     }
     .column{
         padding-bottom: 20px;
         width: 400px;
         height: calc(100vh - 60px);
+        overflow: hidden;
     }
     .detail{
         width: 100%;
@@ -459,6 +509,17 @@ export default {
     .underline{
         border-bottom: 2px solid orange;
     }
+    .tradeDetail{
+        margin-top: 5px;
+        margin-bottom: 5px;
+        width: 88%;
+    }
+    ::v-deep .tradeDetail .cell{
+        text-align: center !important;
+        height: 20px;
+        font-size: 12px;
+        line-height: 20px;
+    }
     .scrollBox{
         width: 88%;
         height: calc(100% - 280px);
@@ -512,7 +573,6 @@ export default {
     .others_component{
         width: 100%;
         height: 100px;
-        z-index: -1;
     }
     .green{
         color: #27de27;
