@@ -1,6 +1,6 @@
 <template>
   <div class="exchange">
-    <el-table :data="tableData" style="width: 100%"  empty-text="暫無匯率資訊">
+    <el-table :data="tableData" style="width: 100%; font-size: 12px;"  empty-text="暫無匯率資訊">
         <el-table-column prop="currency" label="幣別" width="160">
             <template slot-scope="scope">
                 <div class="img"><img :src="`img/flags/${scope.row.flag}.svg`" alt=""></div>
