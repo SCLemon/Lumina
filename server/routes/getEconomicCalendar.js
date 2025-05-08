@@ -1,5 +1,5 @@
 const axios = require('axios');
-const fs = require('fs');
+
 const { JSDOM } = require('jsdom');
 
 async function fetchEconomicCalendarData() {

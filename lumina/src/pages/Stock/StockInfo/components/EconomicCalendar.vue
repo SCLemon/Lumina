@@ -1,15 +1,15 @@
 <template>
-  <div class="eco_table">
-    <template>
-  <el-table :data="tableData" class="table"  border style="width: 100%" empty-text="暫無數據">
-    <el-table-column prop="dateTime" label="日期"></el-table-column>
-    <el-table-column prop="name" label="名稱" width="70"></el-table-column>
-    <el-table-column prop="actual" label="實際" width="60"></el-table-column>
-    <el-table-column prop="forecast" label="預測" width="60"></el-table-column>
-    <el-table-column prop="previous" label="前值" width="60"></el-table-column>
-  </el-table>
-</template>
-  </div>
+    <div class="eco_table">
+        <template>
+            <el-table :data="tableData" class="table"  border style="width: 100%"  empty-text="暫無數據">
+                <el-table-column prop="dateTime" label="日期"></el-table-column>
+                <el-table-column prop="name" label="名稱" width="70"></el-table-column>
+                <el-table-column prop="actual" label="實際" width="60"></el-table-column>
+                <el-table-column prop="forecast" label="預測" width="60"></el-table-column>
+                <el-table-column prop="previous" label="前值" width="60"></el-table-column>
+            </el-table>
+        </template>
+    </div>
 </template>
 
 <script>
@@ -35,9 +35,9 @@ export default {
 
 <style scoped>
     .eco_table{
-        max-height: 370px;
+        height: calc(100vh - 505px);
         overflow-y: scroll;
-        padding-bottom: 20px;
+        padding-bottom: 10px;
     }
     .table{
         font-size: 12px;

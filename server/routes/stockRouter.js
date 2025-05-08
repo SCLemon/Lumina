@@ -53,16 +53,38 @@ router.get('/stock/history',(req,res)=>{
 })
 
 router.get('/stock/news',async (req,res)=>{
-    const page = req.query.page?req.query.page:1;
-    const response = await axios.get(`https://api.cnyes.com/media/api/v1/newslist/category/headline?page=${page}&limit=7`);
-    res.send(response.data.items.data)
+    try{
+        const page = req.query.page?req.query.page:1;
+        const response = await axios.get(`https://api.cnyes.com/media/api/v1/newslist/category/headline?page=${page}&limit=7`);
+        res.send(response.data.items.data)
+    }
+    catch(e){
+        res.send([])
+    }
 })
 
+// 獲取貨幣匯率
+const {getExchangeRate} = require('./getExchangeRate.js')
+router.get('/stock/exchangeRate',async (req,res)=>{
+    try{
+        const data = await getExchangeRate();
+        res.send(data)
+    }
+    catch(e){
+        res.send([])
+    }
+})
 
+// 獲取經濟數據
 const {getEconomicCalendar} = require('./getEconomicCalendar.js')
 router.get('/stock/economy',async (req,res)=>{
-    const data = await getEconomicCalendar();
-    res.send(data)
+    try{
+        const data = await getEconomicCalendar();
+        res.send(data)
+    }
+    catch(e){
+        res.send([])
+    }
 })
 
 

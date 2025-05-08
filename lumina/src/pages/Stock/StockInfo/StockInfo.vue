@@ -72,11 +72,13 @@
                 <div class="others">
                     <div class="others_select">
                         <div :class="`others_select_item others_select_item_left ${others_status==0?'others_selected':''}`" @click="others_status = 0">時事新聞</div>
-                        <div :class="`others_select_item others_select_item_right ${others_status==1?'others_selected':''}`" @click="others_status = 1">經濟數據</div>
+                        <div :class="`others_select_item others_select_item_middle ${others_status==1?'others_selected':''}`" @click="others_status = 1">貨幣匯率</div>
+                        <div :class="`others_select_item others_select_item_right ${others_status==2?'others_selected':''}`" @click="others_status = 2">經濟數據</div>
                     </div>
                     <div class="others_component">
                         <StockNews v-if="others_status == 0"></StockNews>
-                        <EconomicCalendar v-if="others_status == 1"></EconomicCalendar>
+                        <ExchangeRate v-if="others_status == 1"></ExchangeRate>
+                        <EconomicCalendar v-if="others_status == 2"></EconomicCalendar>
                     </div>
                 </div>
             </div>
@@ -90,6 +92,7 @@ import axios from 'axios'
 import {format} from 'date-fns'
 import StockNews from './components/StockNews.vue'
 import EconomicCalendar from './components/EconomicCalendar.vue'
+import ExchangeRate from './components/ExchangeRate.vue'
 export default {
     name:'StockInfo',
     data(){
@@ -104,7 +107,7 @@ export default {
         }
     },
     components:{
-        StockNews,EconomicCalendar
+        StockNews,EconomicCalendar,ExchangeRate
     },
     watch:{
         '$route.query':{
@@ -171,7 +174,6 @@ export default {
         },
         // 交易明細時間
         formatTime(row) {
-            // 假設原始 time 是 ISO 格式，例如 "2025-05-07T13:45:00"
             const time = new Date(row.time)/1000;
             return format(new Date(time), 'HH:mm:ss'); // 回傳格式化後的時間字串
         },
@@ -373,6 +375,7 @@ export default {
     }
     .detail{
         width: 100%;
+        height: 382px;
     }
     .stock_title{
         font-size: 14px;
@@ -522,20 +525,22 @@ export default {
     }
     .scrollBox{
         width: 88%;
-        height: calc(100% - 280px);
+        height: calc(100vh - 460px);
         margin-top: 15px;
+        overflow-x: hidden;
         overflow-y:scroll;
     }
     .ai{
         width: 100%;
         height: 200px;
-        margin-top: 10px;
+        margin-top: 5px;
         border: 1px solid red;
     }
     .others{
         width: 100%;
-        height: 200px;
+        height: calc(100vh - 480px);
         margin-top: 10px;
+        margin-bottom: 15px;
     }
     .others_select{
         width: 100%;
@@ -545,7 +550,7 @@ export default {
         display: flex;
         justify-content: space-evenly;
         align-items: center;
-        margin-bottom: 10px;
+        margin-bottom: 15px;
     }
     .others_select_item{
         width: 50%;
@@ -559,6 +564,7 @@ export default {
         border-radius: 5px 0 0 5px;
     }
     .others_select_item_right{
+        border-left: 1px solid white;
         border-radius: 0 5px 5px 0;
     }
     .others_select_item:hover{

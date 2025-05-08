@@ -64,7 +64,7 @@ export default {
 <style scoped>
     .list{
         width:100%;
-        height: 370px;
+        height: calc(100vh - 505px);
         padding-bottom: 20px;
         overflow-y: scroll;
     }
