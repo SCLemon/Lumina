@@ -13,24 +13,24 @@ function calculateIndicators(stockData){
   // 各種指標參數設為常用預設
   const indicators = {
 
-    rsi: ti.RSI.calculate({ period: 14, values: close }),
-    roc: ti.ROC.calculate({ period: 14, values: close }),
+    rsi: ti.RSI.calculate({ period: 5, values: close }),
+    roc: ti.ROC.calculate({ period: 5, values: close }),
     macd: ti.MACD.calculate({
       values: close,
-      fastPeriod: 12,
-      slowPeriod: 26,
+      fastPeriod: 6,
+      slowPeriod: 13,
       signalPeriod: 9,
       SimpleMAOscillator: false,
       SimpleMASignal: false
     }),
-    stoch: ti.Stochastic.calculate({ high, low, close, period: 14, signalPeriod: 3 }),
-    stochRSI: ti.StochasticRSI.calculate({ values: close, rsiPeriod: 14, stochasticPeriod: 14, kPeriod: 3, dPeriod: 3 }),
-    adx: ti.ADX.calculate({ high, low, close, period: 14 }),
-    cci: ti.CCI.calculate({ high, low, close, period: 14 }),
-    fi: ti.ForceIndex.calculate({ close, volume, period: 14 }),
-    mfi: ti.MFI.calculate({ high, low, close, volume, period: 14 }),
-    sd: ti.SD.calculate({ period: 14, values: close }),
-    williamsR: ti.WilliamsR.calculate({ high, low, close, period: 14 }),
+    stoch: ti.Stochastic.calculate({ high, low, close, period: 5, signalPeriod: 3 }),
+    stochRSI: ti.StochasticRSI.calculate({ values: close, rsiPeriod: 5, stochasticPeriod: 5, kPeriod: 3, dPeriod: 3 }),
+    adx: ti.ADX.calculate({ high, low, close, period: 5}),
+    cci: ti.CCI.calculate({ high, low, close, period: 5 }),
+    fi: ti.ForceIndex.calculate({ close, volume, period: 5 }),
+    mfi: ti.MFI.calculate({ high, low, close, volume, period: 5 }),
+    sd: ti.SD.calculate({ period: 5, values: close }),
+    williamsR: ti.WilliamsR.calculate({ high, low, close, period: 5 }),
 
   };
   
