@@ -1,11 +1,11 @@
 <template>
-  <div class="ai_main">
+  <div class="ai_main" ref="ai_main">
     <div class="isLoading" v-if="isLoading">
         <div class="iL-text">模型正在運算，請稍候...</div>
         <el-skeleton :rows="5" animated />
     </div>
     <div class="result" v-if="!isLoading && results.status">
-        <div>明日上漲機率：</div>
+        <div class="result_title"><i class="fa-solid fa-chart-simple"></i> 上漲趨勢預測</div>
         <div class="result_dashboard">
             <el-progress type="dashboard" :percentage="results.percent" :color="colors"></el-progress>
         </div>
@@ -55,6 +55,7 @@ export default {
                 const res = await axios.get(`/stock/predict?symbol=${this.stockId}`);
                 
                 if(res.data && res.data.status == false){
+                    this.$refs.ai_main.style = 'display:none;'
                     this.$notify.error({ title: '模型運算提示', message: '本支股票暫時無法使用 AI 智能運算。' });
                 }
 
@@ -68,6 +69,7 @@ export default {
                 }, 200);
             }
             catch(e){
+                this.$refs.ai_main.style = 'display:none;'
                 this.results.status = false;
                 this.isLoading = false;
                 this.$notify.error({ title: '模型運算提示', message: '本支股票暫時無法使用 AI 智能運算。' });
@@ -79,8 +81,8 @@ export default {
 
 <style scoped>
     .ai_main{
-        width: 100%;
-        height: 100%;
+        width: 342px;
+        height: 200px;
         padding: 5px;
         box-sizing: border-box;
     }
@@ -99,6 +101,10 @@ export default {
         100% {
             background-position: 0 50%;
         }
+    }
+    .result_title{
+        font-size: 14px;
+        font-weight: bolder;
     }
     .result_dashboard{
         width: 100%;

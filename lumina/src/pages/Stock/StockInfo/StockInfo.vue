@@ -535,7 +535,6 @@ export default {
     }
     .ai{
         width: 100%;
-        height: 200px;
     }
     .others{
         width: 100%;
