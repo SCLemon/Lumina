@@ -68,7 +68,9 @@
                 </div>
             </div>
             <div class="scrollBox">
-                <div class="ai" v-if="0"></div>
+                <div class="ai">
+                    <AiAnalyzer :stockId="symbol"></AiAnalyzer>
+                </div>
                 <div class="others">
                     <div class="others_select">
                         <div :class="`others_select_item others_select_item_left ${others_status==0?'others_selected':''}`" @click="others_status = 0">時事新聞</div>
@@ -93,6 +95,7 @@ import {format} from 'date-fns'
 import StockNews from './components/StockNews.vue'
 import EconomicCalendar from './components/EconomicCalendar.vue'
 import ExchangeRate from './components/ExchangeRate.vue'
+import AiAnalyzer from './components/AiAnalyzer.vue'
 export default {
     name:'StockInfo',
     data(){
@@ -107,7 +110,7 @@ export default {
         }
     },
     components:{
-        StockNews,EconomicCalendar,ExchangeRate
+        StockNews,EconomicCalendar,ExchangeRate,AiAnalyzer
     },
     watch:{
         '$route.query':{
@@ -152,7 +155,7 @@ export default {
             await this.getData();
             this.timer = setInterval(() => {
                 this.update()
-            }, 1500);
+            }, 2000);
         },
         // 重新調整尺寸
         handleResize() {
@@ -533,8 +536,6 @@ export default {
     .ai{
         width: 100%;
         height: 200px;
-        margin-top: 5px;
-        border: 1px solid red;
     }
     .others{
         width: 100%;

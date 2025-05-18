@@ -40,6 +40,9 @@ app.use(limiter);
 const stockRouter = require('./routes/stockRouter.js');
 app.use(stockRouter);
 
+// 預測
+const predictRouter = require('./routes/predictRouter.js');
+app.use(predictRouter);
 
 app.listen(3007, () => {
     console.log('PORT 3007 is listening')
