@@ -12,8 +12,8 @@
                     <div :class="`price_percent ${info.change>0?'red':info.change<0?'green':'black'}`">{{info.change>=0?'+':''}}{{ info.changePercent }}%</div>
                 </div>
                 <div class="compare">
-                    <div class="total_bids" :style="`width:${compare_bids}%`">{{ info.total?info.total.tradeVolumeAtBid:0 }}</div>
-                    <div class="total_asks" :style="`width:${compare_asks}%`">{{ info.total?info.total.tradeVolumeAtAsk:0 }}</div>
+                    <div class="total_bids" :style="`width:${compare_bids}%`">{{ compare_bids?compare_bids:0 }}%</div>
+                    <div class="total_asks" :style="`width:${compare_asks}%`">{{ compare_asks?compare_asks:0 }}%</div>
                 </div>
                 <div class="limit">
                     <div>Open：<span :class="`${showColor(info.openPrice)}`">{{ info.openPrice }}</span></div>  
@@ -122,13 +122,13 @@ export default {
     },
     computed:{
         compare_bids(){
-            if(this.info && this.info.total && this.info.total.tradeVolume){
-                return ((this.info.total.tradeVolumeAtBid / this.info.total.tradeVolume).toFixed(4)*100).toFixed(2)
+            if(this.info && this.info.total){
+                return ((this.info.total.tradeVolumeAtBid / (this.info.total.tradeVolumeAtBid + this.info.total.tradeVolumeAtAsk )).toFixed(4)*100).toFixed(2)
             }
             else return 0
         },
         compare_asks(){
-            if(this.info && this.info.total && this.info.total.tradeVolume){
+            if(this.info && this.info.total){
                 return (100 - this.compare_bids).toFixed(2);
             }
             else return 0
